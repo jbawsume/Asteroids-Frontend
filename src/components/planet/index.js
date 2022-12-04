@@ -21,7 +21,7 @@ function Planet ()
 
             { planet &&
                 planet.map( ( item, pos ) => (
-                    <div className={ `grid-row lato h3 ${ item.minerals >= 1000 ?
+                    <div key={ pos } className={ `grid-row lato h3 ${ item.minerals >= 1000 ?
                         "suffient" : '' }` } >
                         <div>
                             <Popup buttonProps={

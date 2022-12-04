@@ -17,7 +17,7 @@ function Asteroid ()
 
             { asteroid &&
                 asteroid.map( ( item, pos ) => (
-                    <div className={ `grid-row lato h3 ${ item.minerals < 1 ?
+                    <div key={ pos } className={ `grid-row lato h3 ${ item.minerals < 1 ?
                         "insuffient" : '' }` } >
                         <div>{ item.name }</div>
                         <div className="minerals">{ item.minerals }</div>

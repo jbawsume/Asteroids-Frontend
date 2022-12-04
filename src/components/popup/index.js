@@ -15,7 +15,7 @@ function Popup ( { children, buttonProps } )
             { displayPopup && (
                 <div className="overlay-bg">
                     <div className="popup">
-                        <div onClick={ () => setDisplayPopup( false ) } className="close-popup"><span class="icon-delete"></span></div>
+                        <div onClick={ () => setDisplayPopup( false ) } className="close-popup"><span className="icon-delete"></span></div>
                         <div>{ children }</div>
                     </div>
                 </div>

@@ -56,6 +56,10 @@ line-height: 100%;
   display:grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   border-bottom: 0.5px solid #9499C3;
+  min-width:500px;
+}
+.overflow-scroll{
+overflow-x: scroll;
 }
 .filter-miner .grid-row{
   display:grid;

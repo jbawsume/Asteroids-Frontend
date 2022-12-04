@@ -14,7 +14,7 @@ function Miners ( { planet } )
 
     return ( <>
         <div className="title">List of miners of { planet.name }</div>
-        <div className="dashboard-card filter-miner pt-31">
+        <div className="dashboard-card filter-miner overflow-scroll pt-31">
             <div className="grid-row lato h2">
                 <div>Name</div>
                 <div>carryCapacity</div>
@@ -26,12 +26,12 @@ function Miners ( { planet } )
 
             { minerList &&
                 minerList.map( ( item, pos ) => (
-                    <div className={ `grid-row lato h3 ${ item.minerals === item.carryCapacity ?
-                        "suffient" : '' }` } >
+                    <div key={ pos } className={ `grid-row lato h3 ` } >
                         <div>
                             { item.name }
                         </div>
-                        <div className="minerals">{ `${ item.minerals }/${ item.carryCapacity }` }</div>
+                        <div className={ ` ${ item.minerals === item.carryCapacity ?
+                            "minerals" : '' }` }>{ `${ item.minerals }/${ item.carryCapacity }` }</div>
                         <div>{ item.travelSpeed } </div>
                         <div >{ item.miningSpeed }</div>
                         <div>{ item.currentMiner ? item.currentMiner.name : 0 }</div>

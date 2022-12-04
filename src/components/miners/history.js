@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Status from "./status"
+import Status from "./history-status"
+import { format } from "date-fns";
 
+function FormatTime ( { time } )
+{
+    var date = new Date( time );
+    let formatedTime = format( date, "yyyy/mm/dd hh:mm:ss" )
+    return <div>{ formatedTime }</div>
+}
 
 function Miners ( { miner } )
 {
@@ -56,9 +63,9 @@ function Miners ( { miner } )
 
                     { minerHistory &&
                         minerHistory.slice( 0, 9 ).map( ( item, pos ) => (
-                            <div className={ `grid-row lato h3 ${ item.minerals >= 1000 ?
+                            <div key={ pos } className={ `grid-row lato h3 ${ item.minerals >= 1000 ?
                                 "suffient" : '' }` } >
-                                <div>{ item.createdAt }</div>
+                                <div><FormatTime time={ item.createdAt } /></div>
                                 <div>{ item.year }</div>
                                 <div>{ item.planet }</div>
                                 <div>{ `${ item.position.x }/${ item.position.y }` }</div>

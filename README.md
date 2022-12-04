@@ -39,6 +39,13 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Libraries
 
+For this project made use of the following libraries
+
+react-redux: "^8.0.5",
+usage: React Redux is the official React binding for Redux. It allows React components to read data from a Redux Store, and dispatch Actions to the Store to update data.
+
+socket.io-client: "^4.5.4",
+usage: Socket.IO is a library that enables low-latency, bidirectional and event-based communication between a client and a server.
 

@@ -10,7 +10,7 @@ function Miners ()
 
 
     return (
-        <div className="dashboard-card miner">
+        <div className="dashboard-card miner overflow-scroll">
             <div className="grid-row lato h2">
                 <div>Name</div>
                 <div>Planet</div>
@@ -23,7 +23,7 @@ function Miners ()
 
             { miner &&
                 miner.map( ( item, pos ) => (
-                    <div className={ `grid-row lato h3 ${ item.minerals === item.carryCapacity ?
+                    <div key={ pos } className={ `grid-row lato h3 ${ item.minerals === item.carryCapacity ?
                         "suffient" : '' }` } >
                         <div>
                             <Popup buttonProps={
