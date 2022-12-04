@@ -1,56 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import
+{
+  setTicker
+} from './slices/tickerSlice';
 import './App.css';
+import Dashboard from "./components/dashboard";
+import background from './media/background-full.png';
 
-function App() {
+import io from "socket.io-client"
+
+const socket = io.connect( "https://asteroids.dev.mediasia.cn" )
+
+function App ()
+{
+  // const miners = useSelector( miners );
+  const dispatch = useDispatch();
+
+  useEffect( () =>
+  {
+    socket.on( "tick", ( data ) =>
+    {
+      dispatch( setTicker( data ) )
+    } )
+  }, [ socket ] )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
+    <div className="container">
+      <header className="navbar">
+        <span className="icon-logo"></span><span className="navbar-text">BACKEND MINER</span>
       </header>
+      <div className="row">
+        <div className="col-600">
+          <Dashboard />
+        </div>
+        <div className="col-800">
+          <div className="year-text lato">250 YEARS</div>
+          <div className="img-card">
+            <img src={ background } alt="Background Miner Galaxy Image" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
