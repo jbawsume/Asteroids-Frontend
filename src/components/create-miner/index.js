@@ -25,6 +25,10 @@ function CreateMiner ( { planet } )
 
     const saveShippingAddress = async () =>
     {
+        setNameError( '' );
+        setCarryCapacityError( '' );
+        setTravelSpeedError( '' );
+        setMiningSpeedError( '' );
         if ( !name )
         {
             setNameError( 'Name Can not be left blank' );
@@ -45,6 +49,22 @@ function CreateMiner ( { planet } )
             setMiningSpeedError( 'carryCapacity Can not be left blank' );
             return false;
         }
+        if ( carryCapacity > 200 || carryCapacity < 1 )
+        {
+            setCarryCapacityError( 'Capacity must be below 200' );
+            return false;
+        }
+        if ( travelSpeed > 200 || travelSpeed < 1 )
+        {
+            setTravelSpeedError( 'travelSpeed must be below 200' );
+            return false;
+        }
+        if ( miningSpeed > 200 || miningSpeed < 1 )
+        {
+            setMiningSpeedError( 'carryCapacity must be below 200' );
+            return false;
+        }
+
         if ( handleCheckMinerNameExists( { minerItems: minerList, minerName: name } ) )
         {
             setNameError( 'This name is already taken.' );
@@ -108,30 +128,33 @@ function CreateMiner ( { planet } )
                     <div className="form-grid">
                         <div>
                             <div className="label">carryCapacity</div>
-                            <div className="full-input" >
+                            <div className={ `full-input  ${ carryCapacityError !== '' ? 'error' : '' }` } >
                                 <input
                                     type="text"
                                     value={ carryCapacity }
                                     onChange={ e => setCarryCapacity( e.target.value ) } />
                             </div>
+                            { carryCapacityError !== '' && <div className="form-error">{ carryCapacityError }</div> }
                         </div>
                         <div>
                             <div className="label">travelSpeed</div>
-                            <div className="full-input" >
+                            <div className={ `full-input  ${ travelSpeedError !== '' ? 'error' : '' }` } >
                                 <input
                                     type="text"
                                     value={ travelSpeed }
                                     onChange={ e => setTravelSpeed( e.target.value ) } />
                             </div>
+                            { travelSpeedError !== '' && <div className="form-error">{ travelSpeedError }</div> }
                         </div>
                         <div>
                             <div className="label">miningSpeed</div>
-                            <div className="full-input" >
+                            <div className={ `full-input  ${ miningSpeedError !== '' ? 'error' : '' }` } >
                                 <input
                                     type="text"
                                     value={ miningSpeed }
                                     onChange={ e => setMiningSpeed( e.target.value ) } />
                             </div>
+                            { miningSpeedError !== '' && <div className="form-error">{ miningSpeedError }</div> }
                         </div>
                     </div>
                     <div className="form-total pb-31">Total:</div>
