@@ -149,12 +149,10 @@ hr{
 }
 .img-card{
   width: 100%;
-  
 }
 .img-card img{
   width:100%;
   max-width: 100%;
-  
 }
 .overlay-bg{
 position: fixed;
@@ -246,6 +244,9 @@ text-align: center;
 color: #00CF67;
 padding-top: 12px;
 }
+.form-total.error{
+  color: #EB5757;
+}
 .submit-btn{
 background: #E1E2EF;
 border-radius: 8px;
@@ -254,6 +255,10 @@ line-height: 12px;
 color: #1A1B2F;
 padding:8px 32px ;
 border: 0;
+}
+.submit-btn[disabled] {
+  background-color: gray;
+  cursor: not-allowed!important;
 }
 .w-full{
   width:100%;
@@ -275,4 +280,17 @@ color: #FFFFFF;
 }
 .size24{
   font-size: 24px;
+}
+.planet-text{
+font-size: 16px;
+line-height: 100%;
+text-align: center;
+text-transform: uppercase;
+color: #FFFFFF;
+}
+.planet-text.suffient{
+color: #00CF67;
+}
+.miner .icon-miner:before {
+    color: #fff;
 }

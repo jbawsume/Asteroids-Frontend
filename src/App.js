@@ -6,7 +6,7 @@ import
 } from './slices/tickerSlice';
 import './App.css';
 import Dashboard from "./components/dashboard";
-import background from './media/background-full.png';
+import Background from "./components/background";
 
 import io from "socket.io-client"
 
@@ -23,7 +23,11 @@ function App ()
     {
       dispatch( setTicker( data ) )
     } )
-  }, [ socket ] )
+    return () =>
+    {
+      socket.off( 'tick' );
+    };
+  }, [ dispatch ] )
 
   return (
     <div className="container">
@@ -37,7 +41,7 @@ function App ()
         <div className="col-800">
           <div className="year-text lato">250 YEARS</div>
           <div className="img-card">
-            <img src={ background } alt="Background Miner Galaxy Image" />
+            <Background />
           </div>
         </div>
       </div>

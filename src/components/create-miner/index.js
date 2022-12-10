@@ -2,20 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { miners } from '../../slices/tickerSlice';
 import { handleCheckMinerNameExists } from "../../utils"
+
 function CreateMiner ( { planet } )
 {
     const [ name, setName ] = useState( '' );
-
-    const [ carryCapacity, setCarryCapacity ] = useState( '' );
-    const [ travelSpeed, setTravelSpeed ] = useState( '' );
-    const [ miningSpeed, setMiningSpeed ] = useState( '' );
-    const [ total, setTotal ] = useState( '' );
+    const [ carryCapacity, setCarryCapacity ] = useState( 0 );
+    const [ travelSpeed, setTravelSpeed ] = useState( 0 );
+    const [ miningSpeed, setMiningSpeed ] = useState( 0 );
+    const [ total, setTotal ] = useState( 200 );
+    const [ submitDisabled, setSubmitDisabled ] = useState( true );
     const [ showSuccess, setShowSuccess ] = useState( false );
     const [ nameError, setNameError ] = useState( '' );
-    const [ carryCapacityError, setCarryCapacityError ] = useState( '' );
-    const [ travelSpeedError, setTravelSpeedError ] = useState( '' );
-    const [ miningSpeedError, setMiningSpeedError ] = useState( '' );
-
 
     const minerList = useSelector( miners );
     useEffect( () =>
@@ -23,53 +20,48 @@ function CreateMiner ( { planet } )
         setShowSuccess( false )
     }, [] )
 
-    const saveShippingAddress = async () =>
+    useEffect( () =>
     {
-        setNameError( '' );
-        setCarryCapacityError( '' );
-        setTravelSpeedError( '' );
-        setMiningSpeedError( '' );
-        if ( !name )
-        {
-            setNameError( 'Name Can not be left blank' );
-            return false;
-        }
-        if ( !carryCapacity )
-        {
-            setCarryCapacityError( 'carryCapacity Can not be left blank' );
-            return false;
-        }
-        if ( !travelSpeed )
-        {
-            setTravelSpeedError( 'carryCapacity Can not be left blank' );
-            return false;
-        }
-        if ( !miningSpeed )
-        {
-            setMiningSpeedError( 'carryCapacity Can not be left blank' );
-            return false;
-        }
-        if ( carryCapacity > 200 || carryCapacity < 1 )
-        {
-            setCarryCapacityError( 'Capacity must be below 200' );
-            return false;
-        }
-        if ( travelSpeed > 200 || travelSpeed < 1 )
-        {
-            setTravelSpeedError( 'travelSpeed must be below 200' );
-            return false;
-        }
-        if ( miningSpeed > 200 || miningSpeed < 1 )
-        {
-            setMiningSpeedError( 'carryCapacity must be below 200' );
-            return false;
-        }
-
+        let sum = travelSpeed + carryCapacity + miningSpeed
+        setTotal( 200 - sum )
         if ( handleCheckMinerNameExists( { minerItems: minerList, minerName: name } ) )
         {
             setNameError( 'This name is already taken.' );
-            return false;
+            setSubmitDisabled( true )
         }
+        if ( !name || travelSpeed === 0 || carryCapacity === 0 || miningSpeed === 0 || sum < 0 )
+        {
+            setSubmitDisabled( true )
+        } else
+        {
+            setSubmitDisabled( false )
+        }
+    }, [ travelSpeed, carryCapacity, miningSpeed, name, minerList ] )
+
+    function handleTravelSpeed ( event )
+    {
+        const value = parseInt( event.target.value, 10 );
+        setTravelSpeed( value );
+    }
+    function handleMinerName ( event )
+    {
+        setNameError( '' );
+        setName( event.target.value );
+    }
+    function handleCarryCapacity ( event )
+    {
+        const value = parseInt( event.target.value, 10 );
+        setCarryCapacity( value );
+    }
+    function handleMiningSpeed ( event )
+    {
+        const value = parseInt( event.target.value, 10 );
+        setMiningSpeed( value );
+    }
+
+    const saveShippingAddress = async () =>
+    {
+
         const document = {
             name,
             planet: planet._id,
@@ -120,7 +112,7 @@ function CreateMiner ( { planet } )
                     <div className={ `full-input  ${ nameError !== '' ? 'error' : '' }` } ><input
                         type="text"
                         value={ name }
-                        onChange={ e => setName( e.target.value ) } /></div>
+                        onChange={ handleMinerName } /></div>
                     { nameError !== '' && <div className="form-error">{ nameError }</div> }
                     <div className="label">Planet</div>
                     <div className="full-input" >{ planet.name }</div>
@@ -128,38 +120,38 @@ function CreateMiner ( { planet } )
                     <div className="form-grid">
                         <div>
                             <div className="label">carryCapacity</div>
-                            <div className={ `full-input  ${ carryCapacityError !== '' ? 'error' : '' }` } >
+                            <div className={ `full-input` } >
                                 <input
-                                    type="text"
+                                    type="number"
                                     value={ carryCapacity }
-                                    onChange={ e => setCarryCapacity( e.target.value ) } />
+                                    onChange={ handleCarryCapacity } />
                             </div>
-                            { carryCapacityError !== '' && <div className="form-error">{ carryCapacityError }</div> }
+
                         </div>
                         <div>
                             <div className="label">travelSpeed</div>
-                            <div className={ `full-input  ${ travelSpeedError !== '' ? 'error' : '' }` } >
+                            <div className={ `full-input` } >
                                 <input
-                                    type="text"
+                                    type="number"
                                     value={ travelSpeed }
-                                    onChange={ e => setTravelSpeed( e.target.value ) } />
+                                    onChange={ handleTravelSpeed } />
                             </div>
-                            { travelSpeedError !== '' && <div className="form-error">{ travelSpeedError }</div> }
+
                         </div>
                         <div>
                             <div className="label">miningSpeed</div>
-                            <div className={ `full-input  ${ miningSpeedError !== '' ? 'error' : '' }` } >
+                            <div className={ `full-input` } >
                                 <input
-                                    type="text"
+                                    type="number"
                                     value={ miningSpeed }
-                                    onChange={ e => setMiningSpeed( e.target.value ) } />
+                                    onChange={ handleMiningSpeed } />
                             </div>
-                            { miningSpeedError !== '' && <div className="form-error">{ miningSpeedError }</div> }
+
                         </div>
                     </div>
-                    <div className="form-total pb-31">Total:</div>
+                    <div className={ `form-total pb-31  ${ total < 0 ? 'error' : '' }` }>Total: { total }/200</div>
                     <div className="w-full text-center">
-                        <button onClick={ saveShippingAddress } className="submit-btn">
+                        <button onClick={ saveShippingAddress } disabled={ submitDisabled } className="submit-btn pointer">
                             Save</button>
                     </div>
 

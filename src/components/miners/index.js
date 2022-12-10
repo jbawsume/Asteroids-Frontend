@@ -33,8 +33,8 @@ function Miners ()
                                 <History miner={ item } />
                             </Popup>
                         </div>
-                        <div className="minerals">{ item.planet.name }</div>
-                        <div>{ `${ item.minerals },${ item.carryCapacity }` }</div>
+                        <div>{ item.planet.name }</div>
+                        <div className="minerals">{ `${ item.minerals }/${ item.carryCapacity }` }</div>
                         <div>{ item.travelSpeed } </div>
                         <div >{ item.miningSpeed }</div>
                         <div>{ item.currentMiner ? item.currentMiner.name : 0 }</div>
