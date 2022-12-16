@@ -28,5 +28,6 @@ export const { setTicker } = tickerSlice.actions;
 export const miners = ( state ) => state.ticker.miners;
 export const planets = ( state ) => state.ticker.planets;
 export const asteroids = ( state ) => state.ticker.asteroids;
+export const currentTick = ( state ) => state.ticker.currentTick;
 export default tickerSlice.reducer;
 

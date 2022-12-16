@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import
 {
-  setTicker
+  setTicker, currentTick
 } from './slices/tickerSlice';
 import './App.css';
 import Dashboard from "./components/dashboard";
@@ -14,8 +14,9 @@ const socket = io.connect( "https://asteroids.dev.mediasia.cn" )
 
 function App ()
 {
-  // const miners = useSelector( miners );
+  const currentYear = useSelector( currentTick );
   const dispatch = useDispatch();
+
 
   useEffect( () =>
   {
@@ -39,7 +40,7 @@ function App ()
           <Dashboard />
         </div>
         <div className="col-800">
-          <div className="year-text lato">250 YEARS</div>
+          <div className="year-text lato">{ currentYear } YEARS</div>
           <div className="img-card">
             <Background />
           </div>

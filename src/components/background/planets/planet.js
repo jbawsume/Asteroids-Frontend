@@ -36,7 +36,7 @@ function Planet ( { width, item } )
             height: 50
         } } src={ planetUrl } alt="planet icon " /></div>
 
-            <div className={ `planet-text lato ${ item.minerals >= 1000 ?
+            <div style={ { position: 'absolute', bottom: -10, left: -10 } } className={ `planet-text lato ${ item.minerals >= 1000 ?
                 "suffient" : '' }` }>{ item.minerals }/1000</div>
         </div>
     );

@@ -62,7 +62,7 @@ function Miners ( { miner } )
                     </div>
 
                     { minerHistory &&
-                        minerHistory.slice( 0, 9 ).map( ( item, pos ) => (
+                        minerHistory.map( ( item, pos ) => (
                             <div key={ pos } className={ `grid-row lato h3 ${ item.minerals >= 1000 ?
                                 "suffient" : '' }` } >
                                 <div><FormatTime time={ item.createdAt } /></div>
